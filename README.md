@@ -52,5 +52,5 @@ And the momentum:
 
 We can use Runge-Kutta to solve these equations to produce:
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum.gif" width="640" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum.gif" width="480" />
 </p>
