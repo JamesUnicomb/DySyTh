@@ -4,7 +4,7 @@ Dynamical Systems with Theano
 ## Runge-Kutta - RK4 in Theano
 We can solve systems of differential equations using numerical methods. As an example, the equations for the Lorents Attractor:
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorentzEquations.gif" width="120" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorentzEquations.gif" width="240" />
 </p>
 
 These written (with more detail in LorentzAttractor.py):
@@ -34,5 +34,5 @@ And we can iteratively solve to find the state of the system.
 
 ## Lorentz Attractor
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorentzAttractor.gif" width="320" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorentzAttractor.gif" width="640" />
 </p>
