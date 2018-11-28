@@ -1,6 +1,8 @@
+import os, shutil
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.animation import FuncAnimation
 
 import theano
 import theano.tensor as T
@@ -42,8 +44,29 @@ RK4 = theano.function([x,h,sigma,rho,beta,N],
 test_array = RK4(np.array([1.0, 1.0, 0.0]),
                     0.005, 10.0, 25.0, 8.0 / 3.0, 10000)
 
+
+
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.plot(test_array[:,0], test_array[:,1], test_array[:,2])
-ax.view_init(0.0, -45.0)
+fig.set_tight_layout(True)
+ax.set_axis_off()
+
+ax.plot(test_array[:,0], test_array[:,1], test_array[:,2], c='C0', linewidth=0.125)
+k=1
+lorentz_line, = ax.plot(test_array[:k,0], test_array[:k,1], test_array[:k,2], color='C0')
+
+def update(k):
+    ax.view_init(30.0, -45.0 + k)
+    label = 'timestep {0}'.format(k)
+    print label
+
+    idt = int((1.0 * k) / 360 * len(test_array))
+    lorentz_line.set_xdata(test_array[:idt,0])
+    lorentz_line.set_ydata(test_array[:idt,1])
+    lorentz_line.set_3d_properties(test_array[:idt,2])
+
+    return lorentz_line, ax
+
+anim = FuncAnimation(fig, update, frames=np.arange(0, 360), interval=50)
+anim.save(__file__.split('.')[0]+'.gif', dpi=80, writer='imagemagick')
 plt.show()
