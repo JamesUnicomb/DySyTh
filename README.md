@@ -41,14 +41,12 @@ And we can iteratively solve to find the state of the system.
 ## Double Pendulum
 The equations for the pendulum angles are given by:
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulumEquations1.gif" height="100px"
-  width="100px" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulumEquations1.gif" height="60"/>
 </p>
 
 And the momentum:
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulumEquations2.gif" height="100px"
-  width="100px" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulumEquations2.gif" height="60"/>
 </p>
 
 We can use Runge-Kutta to solve these equations to produce:
