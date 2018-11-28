@@ -5,7 +5,7 @@ Dynamical Systems with Theano
 We can solve systems of differential equations using numerical methods. As an example, the equations for the Lorents Attractor:
 <p align="center">
   <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorentzEquations.gif"
-  height="40" />
+  height="60" />
 </p>
 
 These written (with more detail in LorentzAttractor.py):
