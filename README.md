@@ -36,3 +36,9 @@ And we can iteratively solve to find the state of the system.
 <p align="center">
   <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorentzAttractor.gif" width="640" />
 </p>
+
+
+## Double Pendulum
+<p align="center">
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum.gif" width="640" />
+</p>
