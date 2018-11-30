@@ -70,5 +70,5 @@ The system of equations given by:
 
 
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/RabinovichFabrikant/RabinovichFabrikant.png" width="480" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/RabinovichFabrikant/RabinovichFabrikant.gif" width="480" />
 </p>
