@@ -62,3 +62,13 @@ For each different starting position we time plot how long it takes for the pend
 <p align="center">
   <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum/TimeToFlip.png" width="480" />
 </p>
+
+
+## Rabinovich-Fabrikant
+
+The system of equations given by:
+
+
+<p align="center">
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/RabinovichFabrikant/RabinovichFabrikant.png" width="480" />
+</p>

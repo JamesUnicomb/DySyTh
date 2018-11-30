@@ -47,32 +47,42 @@ RK4 = theano.function([x,h,sigma,rho,beta,N],
                       result,
                       allow_input_downcast=True)
 
-test_array = RK4(np.array([1.0, 1.0, 0.0]),
-                    0.005, 10.0, 25.0, 8.0 / 3.0, 10000)
 
 
 
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-fig.set_tight_layout(True)
-ax.set_axis_off()
 
-ax.plot(test_array[:,0], test_array[:,1], test_array[:,2], c='C0', linewidth=0.125)
-k=1
-lorentz_line, = ax.plot(test_array[:k,0], test_array[:k,1], test_array[:k,2], color='C0')
+def plot_path():
+    state_array = RK4(np.array([1.0, 1.0, 0.0]),
+                        0.005, 10.0, 25.0, 8.0 / 3.0, 10000)
 
-def update(k):
-    ax.view_init(30.0, -45.0 + k)
-    label = 'timestep {0}'.format(k)
-    print label
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    fig.set_tight_layout(True)
+    ax.set_axis_off()
 
-    idt = int((1.0 * k) / 360 * len(test_array))
-    lorentz_line.set_xdata(test_array[:idt,0])
-    lorentz_line.set_ydata(test_array[:idt,1])
-    lorentz_line.set_3d_properties(test_array[:idt,2])
+    ax.plot(state_array[:,0], state_array[:,1], state_array[:,2], c='C0', linewidth=0.125)
+    k=1
+    lorentz_line, = ax.plot(state_array[:k,0], state_array[:k,1], state_array[:k,2], color='C0')
 
-    return lorentz_line, ax
+    def update(k):
+        ax.view_init(30.0, -45.0 + k)
+        label = 'timestep {0}'.format(k)
+        print label
 
-anim = FuncAnimation(fig, update, frames=np.arange(0, 360), interval=50)
-anim.save(os.path.join(__file__.split('.')[0], __file__.split('.')[0]+'.gif'), dpi=80, writer='imagemagick')
-plt.show()
+        idt = int((1.0 * k) / 360 * len(state_array))
+        lorentz_line.set_xdata(state_array[:idt,0])
+        lorentz_line.set_ydata(state_array[:idt,1])
+        lorentz_line.set_3d_properties(state_array[:idt,2])
+
+        return lorentz_line, ax
+
+    anim = FuncAnimation(fig, update, frames=np.arange(0, 360), interval=50)
+    anim.save(os.path.join(__file__.split('.')[0], __file__.split('.')[0]+'.gif'), dpi=80, writer='imagemagick')
+    plt.show()
+
+
+def main():
+    plot_path()
+
+if __name__=='__main__':
+    main()
