@@ -4,7 +4,7 @@ Dynamical Systems with Theano
 ## Runge-Kutta - RK4 in Theano
 We can solve systems of differential equations using numerical methods. As an example, the equations for the Lorents Attractor:
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorentzEquations.gif"
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorrentzAttractor/LorentzEquations.gif"
   height="60" />
 </p>
 
@@ -35,22 +35,22 @@ And we can iteratively solve to find the state of the system.
 
 ## Lorentz Attractor
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorentzAttractor.gif" width="640" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorrentzAttractor/LorentzAttractor.gif" width="640" />
 </p>
 
 
 ## Double Pendulum
 The equations for the pendulum angles are given by:
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulumEquations1.gif" height="40"/>
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum/DoublePendulumEquations1.gif" height="40"/>
 </p>
 
 And the momentum:
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulumEquations2.gif" height="40"/>
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum/DoublePendulumEquations2.gif" height="40"/>
 </p>
 
 We can use Runge-Kutta to solve these equations to produce:
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum.gif" width="480" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum/DoublePendulum.gif" width="480" />
 </p>

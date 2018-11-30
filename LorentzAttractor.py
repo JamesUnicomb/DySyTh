@@ -7,6 +7,12 @@ from matplotlib.animation import FuncAnimation
 import theano
 import theano.tensor as T
 
+try:
+    os.mkdir(__file__.split('.')[0])
+except OSError:
+    pass
+
+
 sigma = T.fscalar()
 rho   = T.fscalar()
 beta  = T.fscalar()
@@ -68,5 +74,5 @@ def update(k):
     return lorentz_line, ax
 
 anim = FuncAnimation(fig, update, frames=np.arange(0, 360), interval=50)
-anim.save(__file__.split('.')[0]+'.gif', dpi=80, writer='imagemagick')
+anim.save(os.path.join(__file__.split('.')[0], __file__.split('.')[0]+'.gif'), dpi=80, writer='imagemagick')
 plt.show()

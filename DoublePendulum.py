@@ -7,6 +7,11 @@ from matplotlib.animation import FuncAnimation
 import theano
 import theano.tensor as T
 
+try:
+    os.mkdir(__file__.split('.')[0])
+except OSError:
+    pass
+
 mass     = T.fscalar()
 length   = T.fscalar()
 gravity  = T.fscalar()
@@ -90,5 +95,5 @@ def update(k):
     return ax
 
 anim = FuncAnimation(fig, update, frames=np.arange(0, 800), interval=50)
-anim.save(__file__.split('.')[0]+'.gif', dpi=80, writer='imagemagick')
+anim.save(os.path.join(__file__.split('.')[0], __file__.split('.')[0]+'.gif'), dpi=80, writer='imagemagick')
 plt.show()
