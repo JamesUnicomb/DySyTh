@@ -60,5 +60,5 @@ We can use Runge-Kutta to solve these equations to produce:
 
 For each different starting position we time plot how long it takes for the pendulum to flip, producing a fractal pattern.
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum/TimetoFlip.png" width="480" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum/TimeToFlip.png" width="480" />
 </p>
