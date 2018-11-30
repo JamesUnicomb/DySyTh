@@ -39,11 +39,11 @@ RK4 = theano.function([x,h,kappa,rho,beta1,beta2,N],
                       result,
                       allow_input_downcast=True)
 
-test_array = RK4(np.array([1.0, 1.0, 0.0]),
+state_array = RK4(np.array([1.0, 1.0, 0.0]),
                     0.001, 0.852, 0.048, 0.7, 0.84, 10000)
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.plot(test_array[:,0], test_array[:,1], test_array[:,2])
+ax.plot(state_array[:,0], state_array[:,1], state_array[:,2])
 ax.view_init(0.0, -45.0)
 plt.show()

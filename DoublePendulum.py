@@ -53,47 +53,99 @@ RK4 = theano.function([x,h,mass,length,gravity,N],
                       result,
                       allow_input_downcast=True)
 
-theta1 = np.random.uniform(0.0, 2.0 * np.pi)
-theta2 = np.random.uniform(0.0, 2.0 * np.pi)
-l      = 1.0
-m      = 1.0
-g      = 9.81
-
-test_array = RK4(np.array([theta1, theta2, 0.0, 0.0]),
-                     0.005, m, l, g, 4000)
-
-x1 = l * np.cos(test_array[:,0] - np.pi / 2)
-y1 = l * np.sin(test_array[:,0] - np.pi / 2)
-
-x2 = x1 + l * np.cos(test_array[:,1] - np.pi / 2)
-y2 = y1 + l * np.sin(test_array[:,1] - np.pi / 2)
 
 
-fig = plt.figure()
-ax = fig.add_subplot(111)
-fig.set_tight_layout(True)
-ax.set_axis_off()
-ax.set_xlim([-3.0, 3.0])
-ax.set_ylim([-3.0, 3.0])
-ax.set_aspect('equal')
 
-k=0
-pendulum_line, = ax.plot([0.0, x1[k], x2[k]], [0.0, y1[k], y2[k]], 'k')
-path_line,     = ax.plot(x1[:k], y1[:k], c='C0', linewidth=0.125)
+def plot_path():
+    theta1 = np.random.uniform(0.0, 2.0 * np.pi)
+    theta2 = np.random.uniform(0.0, 2.0 * np.pi)
+    l      = 1.0
+    m      = 1.0
+    g      = 9.81
 
-def update(k):
-    label = 'timestep {0}'.format(k)
-    print label
+    test_array = RK4(np.array([theta1, theta2, 0.0, 0.0]),
+                         0.005, m, l, g, 4000)
 
-    idt = int((1.0 * k) / 800 * len(test_array))
-    pendulum_line.set_xdata([0.0, x1[idt], x2[idt]])
-    pendulum_line.set_ydata([0.0, y1[idt], y2[idt]])
+    x1 = l * np.cos(test_array[:,0] - np.pi / 2)
+    y1 = l * np.sin(test_array[:,0] - np.pi / 2)
 
-    path_line.set_xdata(x2[:idt])
-    path_line.set_ydata(y2[:idt])
+    x2 = x1 + l * np.cos(test_array[:,1] - np.pi / 2)
+    y2 = y1 + l * np.sin(test_array[:,1] - np.pi / 2)
 
-    return ax
 
-anim = FuncAnimation(fig, update, frames=np.arange(0, 800), interval=50)
-anim.save(os.path.join(__file__.split('.')[0], __file__.split('.')[0]+'.gif'), dpi=80, writer='imagemagick')
-plt.show()
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    fig.set_tight_layout(True)
+    ax.set_axis_off()
+    ax.set_xlim([-3.0, 3.0])
+    ax.set_ylim([-3.0, 3.0])
+    ax.set_aspect('equal')
+
+    k=0
+    pendulum_line, = ax.plot([0.0, x1[k], x2[k]], [0.0, y1[k], y2[k]], 'k')
+    path_line,     = ax.plot(x1[:k], y1[:k], c='C0', linewidth=0.125)
+
+    def update(k):
+        label = 'timestep {0}'.format(k)
+        print label
+
+        idt = int((1.0 * k) / 800 * len(test_array))
+        pendulum_line.set_xdata([0.0, x1[idt], x2[idt]])
+        pendulum_line.set_ydata([0.0, y1[idt], y2[idt]])
+
+        path_line.set_xdata(x2[:idt])
+        path_line.set_ydata(y2[:idt])
+
+        return ax
+
+    anim = FuncAnimation(fig, update, frames=np.arange(0, 800), interval=50)
+    anim.save(os.path.join(__file__.split('.')[0], __file__.split('.')[0]+'.gif'), dpi=80, writer='imagemagick')
+    plt.show()
+
+
+
+def plot_zero_crossing(K = 600):
+    l      = 1.0
+    m      = 1.0
+    g      = 9.81
+
+    theta1_, theta2_ = np.meshgrid(np.linspace(-np.pi, np.pi, K),
+                                   np.linspace(-np.pi, np.pi, K))
+
+    thetas = np.column_stack((theta1_.flatten(), theta2_.flatten()))
+    min_crossing_time = []
+
+    for theta1, theta2 in thetas:
+        print np.round(theta1,2), np.round(theta2,2), '\r',
+        state_array = RK4(np.array([theta1, theta2, 0.0, 0.0]),
+                             0.1, m, l, g, 300)
+
+        theta_diff    = np.mod(state_array[:,0] - state_array[:,1] - np.pi, 2.0 * np.pi)
+        crossings     = np.abs(np.diff(theta_diff)) > np.pi
+
+        if np.sum(crossings) == 0:
+            min_crossing_time.append(np.nan)
+        else:
+            min_crossing_time.append(np.min(np.where(crossings)))
+
+    min_crossing_time = np.array(min_crossing_time)
+
+    ax = plt.subplot(111)
+    ax.imshow(np.log(min_crossing_time.reshape(K,K)),
+              origin='lower',
+              extent=[np.min(theta1_), np.max(theta1_), np.min(theta2_), np.max(theta2_)])
+    ax.set_aspect('equal')
+    plt.savefig(os.path.join(__file__.split('.')[0], 'TimeToFlip.png'), dpi=400)
+    plt.show()
+
+
+
+def main():
+    if 0:
+        plot_path()
+    else:
+        plot_zero_crossing()
+
+if __name__=='__main__':
+    main()
