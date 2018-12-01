@@ -3,10 +3,8 @@ Dynamical Systems with Theano
 
 ## Runge-Kutta - RK4 in Theano
 We can solve systems of differential equations using numerical methods. As an example, the equations for the Lorents Attractor:
-<p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/LorenzAttractor/LorenzEquations.gif"
-  height="60" />
-</p>
+
+href="https://www.codecogs.com/eqnedit.php?latex=\begin{bmatrix}&space;x'\\&space;y'\\&space;z'&space;\end{bmatrix}=&space;\begin{bmatrix}&space;\sigma&space;(y-x)\\&space;x&space;(\rho&space;-&space;z)&space;-&space;y&space;\\&space;xy&space;-&space;\beta&space;z&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;x'\\&space;y'\\&space;z'&space;\end{bmatrix}=&space;\begin{bmatrix}&space;\sigma&space;(y-x)\\&space;x&space;(\rho&space;-&space;z)&space;-&space;y&space;\\&space;xy&space;-&space;\beta&space;z&space;\end{bmatrix}" title="\begin{bmatrix} x'\\ y'\\ z' \end{bmatrix}= \begin{bmatrix} \sigma (y-x)\\ x (\rho - z) - y \\ xy - \beta z \end{bmatrix}" /></a></p>
 
 These written (with more detail in LorentzAttractor.py):
 ```
