@@ -149,7 +149,7 @@ def plot_zero_crossing(K = 600):
 
     initial_states = np.stack((theta1_, theta2_, np.zeros_like(theta1_), np.zeros_like(theta2_)), axis=2)
 
-    state_array = RK4(initial_states, 0.025, m, l, g, 500)
+    state_array = RK4(initial_states, 0.025, m, l, g, 1000)
 
     min_crossing_time = []
 
