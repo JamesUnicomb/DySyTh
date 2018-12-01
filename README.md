@@ -72,3 +72,12 @@ The system of equations given by:
 <p align="center">
   <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/RabinovichFabrikant/RabinovichFabrikant.gif" width="480" />
 </p>
+
+
+## Mandelbrot Set
+
+<p align="center"><img src="https://latex.codecogs.com/gif.latex?\begin{align*}&space;z_0&space;&=&space;0&space;\\&space;z_{n&plus;1}&space;&=&space;z_n^2&space;&plus;&space;c&space;\end{align*}&space;\\&space;c&space;\in&space;M&space;\iff&space;{\lim\sup}_{n\rightarrow\infty}&space;|z_n|&space;<&space;2" title="\begin{align*} z_0 &= 0 \\ z_{n+1} &= z_n^2 + c \end{align*} \\ c \in M \iff {\lim\sup}_{n\rightarrow\infty} |z_n| < 2" /></p>
+
+<p align="center">
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/RabinovichFabrikant/MandelbrotSet.png" width="480" />
+</p>
