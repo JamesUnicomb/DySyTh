@@ -40,12 +40,12 @@ And we can iteratively solve to find the state of the system.
 ## Double Pendulum
 The equations for the pendulum angles are given by:
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum/DoublePendulumEquations1.gif" height="40"/>
+  <img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;\theta_1'\\&space;\theta_2'&space;\end{bmatrix}=&space;\frac{6}{ml^2}\frac{1}{16&space;-&space;9&space;\cos^2&space;(\theta_1&space;-&space;\theta_2)}&space;\begin{bmatrix}&space;2p_1&space;-&space;3&space;\cos&space;(\theta_1&space;-&space;\theta_2)p_2\\&space;8p_2&space;-&space;3&space;\cos&space;(\theta_1&space;-&space;\theta_2)p_1&space;\end{bmatrix}" title="\begin{bmatrix} \theta_1'\\ \theta_2' \end{bmatrix}= \frac{6}{ml^2}\frac{1}{16 - 9 \cos^2 (\theta_1 - \theta_2)} \begin{bmatrix} 2p_1 - 3 \cos (\theta_1 - \theta_2)p_2\\ 8p_2 - 3 \cos (\theta_1 - \theta_2)p_1 \end{bmatrix}" />
 </p>
 
 And the momentum:
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/DoublePendulum/DoublePendulumEquations2.gif" height="40"/>
+  <img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;p_1'\\&space;p_2'&space;\end{bmatrix}=-\frac{1}{2}ml^2&space;\begin{bmatrix}&space;\theta_1'&space;\theta_2'&space;\sin&space;(\theta_1&space;-&space;\theta_2)&space;&plus;&space;3\frac{g}{l}&space;\sin&space;\theta_1&space;\\&space;-\theta_1'&space;\theta_2'&space;\sin&space;(\theta_1&space;-&space;\theta_2)&space;&plus;&space;\frac{g}{l}&space;\sin&space;\theta_2&space;\end{bmatrix}" title="\begin{bmatrix} p_1'\\ p_2' \end{bmatrix}=-\frac{1}{2}ml^2 \begin{bmatrix} \theta_1' \theta_2' \sin (\theta_1 - \theta_2) + 3\frac{g}{l} \sin \theta_1 \\ -\theta_1' \theta_2' \sin (\theta_1 - \theta_2) + \frac{g}{l} \sin \theta_2 \end{bmatrix}" />
 </p>
 
 We can use Runge-Kutta to solve these equations to produce:
