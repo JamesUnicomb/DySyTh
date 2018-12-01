@@ -4,7 +4,7 @@ Dynamical Systems with Theano
 ## Runge-Kutta - RK4 in Theano
 We can solve systems of differential equations using numerical methods. As an example, the equations for the Lorents Attractor:
 
-<p align="center"><a href="https://www.codecogs.com/eqnedit.php?latex=\begin{bmatrix}&space;x'\\&space;y'\\&space;z'&space;\end{bmatrix}=&space;\begin{bmatrix}&space;\sigma&space;(y-x)\\&space;x&space;(\rho&space;-&space;z)&space;-&space;y&space;\\&space;xy&space;-&space;\beta&space;z&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;x'\\&space;y'\\&space;z'&space;\end{bmatrix}=&space;\begin{bmatrix}&space;\sigma&space;(y-x)\\&space;x&space;(\rho&space;-&space;z)&space;-&space;y&space;\\&space;xy&space;-&space;\beta&space;z&space;\end{bmatrix}" title="\begin{bmatrix} x'\\ y'\\ z' \end{bmatrix}= \begin{bmatrix} \sigma (y-x)\\ x (\rho - z) - y \\ xy - \beta z \end{bmatrix}" /></a></p>
+<p align="center"><img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;x'\\&space;y'\\&space;z'&space;\end{bmatrix}=&space;\begin{bmatrix}&space;\sigma&space;(y-x)\\&space;x&space;(\rho&space;-&space;z)&space;-&space;y&space;\\&space;xy&space;-&space;\beta&space;z&space;\end{bmatrix}" title="\begin{bmatrix} x'\\ y'\\ z' \end{bmatrix}= \begin{bmatrix} \sigma (y-x)\\ x (\rho - z) - y \\ xy - \beta z \end{bmatrix}" /></p>
 
 These written (with more detail in LorentzAttractor.py):
 ```
@@ -66,7 +66,7 @@ For each different starting position we time plot how long it takes for the pend
 
 The system of equations given by:
 
-<p align="center"><a href="https://www.codecogs.com/eqnedit.php?latex=\begin{bmatrix}&space;x'\\&space;y'\\&space;z'&space;\end{bmatrix}=&space;\begin{bmatrix}&space;y(z&space;-&space;1&space;&plus;&space;x^2)&plus;\gamma&space;x\\&space;x(3z&space;&plus;&space;1&space;-&space;x^2)&space;&plus;&space;\gamma&space;y\\&space;-2z(\alpha&space;&plus;&space;xy)&space;\end{bmatrix}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;x'\\&space;y'\\&space;z'&space;\end{bmatrix}=&space;\begin{bmatrix}&space;y(z&space;-&space;1&space;&plus;&space;x^2)&plus;\gamma&space;x\\&space;x(3z&space;&plus;&space;1&space;-&space;x^2)&space;&plus;&space;\gamma&space;y\\&space;-2z(\alpha&space;&plus;&space;xy)&space;\end{bmatrix}" title="\begin{bmatrix} x'\\ y'\\ z' \end{bmatrix}= \begin{bmatrix} y(z - 1 + x^2)+\gamma x\\ x(3z + 1 - x^2) + \gamma y\\ -2z(\alpha + xy) \end{bmatrix}" /></a></p>
+<p align="center"><img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;x'\\&space;y'\\&space;z'&space;\end{bmatrix}=&space;\begin{bmatrix}&space;y(z&space;-&space;1&space;&plus;&space;x^2)&plus;\gamma&space;x\\&space;x(3z&space;&plus;&space;1&space;-&space;x^2)&space;&plus;&space;\gamma&space;y\\&space;-2z(\alpha&space;&plus;&space;xy)&space;\end{bmatrix}" title="\begin{bmatrix} x'\\ y'\\ z' \end{bmatrix}= \begin{bmatrix} y(z - 1 + x^2)+\gamma x\\ x(3z + 1 - x^2) + \gamma y\\ -2z(\alpha + xy) \end{bmatrix}" /></a></p>
 
 
 <p align="center">
