@@ -25,6 +25,7 @@ result, _ = theano.scan(fn=step,
 
 f = theano.function([M,C,d], result, allow_input_downcast=True)
 
+
 def plot_mandelbrot(K    = 4000,
                     save = True):
     x,y = np.meshgrid(np.linspace(-2.0, 1.0, K), np.linspace(-1.5, 1.5, K))
@@ -103,10 +104,11 @@ def plot_mandelbar(K    = 4000,
     plt.show()
 
 
+
 def main():
-    #plot_mandelbrot(4000, True)
+    plot_mandelbrot(4000, True)
     plot_multibrot(800, True)
-    #plot_mandelbar(4000, True)
+    plot_mandelbar(4000, True)
 
 if __name__=='__main__':
     main()
