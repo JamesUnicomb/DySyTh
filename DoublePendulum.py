@@ -176,10 +176,8 @@ def plot_zero_crossing(K = 600):
 
 
 def main():
-    if 0:
-        plot_path()
-    else:
-        plot_zero_crossing()
+    plot_path()
+    plot_zero_crossing()
 
 if __name__=='__main__':
     main()
