@@ -86,7 +86,7 @@ The system of equations given by:
 
 ### Multibrot Set
 
-For the standard Mandelbrot set, we use the equations above, however, we can change the exponent in the equation to produce similar plots. The gif shows the effect of changing the exponent (varying from 0 to 5).
+For the standard Mandelbrot set, we use the equations above, however, we can change the exponent in the equation to produce similar plots. The gif shows the effect of changing the exponent (varying from 0 to 10).
 
 
 <p align="center"><img src="https://latex.codecogs.com/gif.latex?\begin{align*}&space;z_0&space;&&space;=&space;0&space;\\&space;z_{n&plus;1}&space;&=&space;z_n^d&space;&plus;&space;c&space;\end{align*}" title="\begin{align*} z_0 & = 0 \\ z_{n+1} &= z_n^d + c \end{align*}" /></p>
