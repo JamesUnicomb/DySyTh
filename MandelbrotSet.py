@@ -12,24 +12,41 @@ try:
 except OSError:
     pass
 
-C = T.cmatrix()
-M = T.cmatrix()
-d = T.scalar()
 
-def step(X):
-    return T.pow(X, d) + C
+def mandelbrot_functions(function = ['mandelbrot', 'mandelbar', 'multibrot'][0],
+                         N = 50):
+    C = T.cmatrix()
+    M = T.cmatrix()
+    d = T.scalar()
 
-result, _ = theano.scan(fn=step,
-                        outputs_info=M,
-                        n_steps=50)
+    if function == 'mandelbrot':
+        def step(X):
+            return T.square(X) + C
+    elif function == 'multibrot':
+        def step(X):
+            return T.pow(X, d) + C
+    elif function == 'mandelbar':
+        def step(X):
+            return T.square(T.conj(X)) + C
 
-f = theano.function([M,C,d], result, allow_input_downcast=True)
+    result, _ = theano.scan(fn=step,
+                            outputs_info=M,
+                            n_steps=N)
+
+    if (function == 'mandelbrot')or(function == 'mandelbar'):
+        f = theano.function([M,C], result, allow_input_downcast=True)
+    else:
+        f = theano.function([M,C,d], result, allow_input_downcast=True)
+
+    return f
 
 
 def plot_mandelbrot(K    = 4000,
                     save = True):
+    f = mandelbrot_functions(function = 'mandelbrot')
+
     x,y = np.meshgrid(np.linspace(-2.0, 1.0, K), np.linspace(-1.5, 1.5, K))
-    Z_n = f(np.zeros((K,K)), x+y*1j, 2.0)
+    Z_n = f(np.zeros((K,K)), x+y*1j)
     mandelbrot = np.sum(np.absolute(Z_n) < 2.0, axis=0)
 
     fig = plt.figure()
@@ -45,13 +62,11 @@ def plot_mandelbrot(K    = 4000,
 
 def plot_multibrot(K    = 4000,
                    save = True):
+    f = mandelbrot_functions(function = 'multibrot')
+
     x,y = np.meshgrid(np.linspace(-2.0, 1.0, K), np.linspace(-1.5, 1.5, K))
     Z_n = f(np.zeros((K,K)), x+y*1j, 0.0)
     mandelbrot = np.sum(np.absolute(Z_n) < 2.0, axis=0)
-
-    def extents(f):
-        delta = f[1] - f[0]
-        return [f[0] - delta/2, f[-1] + delta/2]
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -80,14 +95,7 @@ def plot_multibrot(K    = 4000,
 
 def plot_mandelbar(K    = 4000,
                    save = True):
-    def step(X):
-        return T.square(T.conj(X)) + C
-
-    result, _ = theano.scan(fn=step,
-                            outputs_info=M,
-                            n_steps=50)
-
-    f = theano.function([M,C], result, allow_input_downcast=True)
+    f = mandelbrot_functions(function = 'mandelbar')
 
     x,y = np.meshgrid(np.linspace(-2.0, 1.0, K), np.linspace(-1.5, 1.5, K))
     Z_n = f(np.zeros((K,K)), x+y*1j)
@@ -103,6 +111,9 @@ def plot_mandelbar(K    = 4000,
         plt.savefig(os.path.join(__file__.split('.')[0], 'Mandelbar.png'), dpi=600)
     plt.show()
 
+
+# def mandelbulb(K = 200):
+#
 
 
 def main():
