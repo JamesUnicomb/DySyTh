@@ -36,7 +36,7 @@ def plot_mandelbrot(K    = 4000,
     fig.set_tight_layout(True)
     ax.set_aspect('equal')
 
-    ax.contourf(x, y, mandelbrot, cmap='gray')
+    ax.contourf(x, y, mandelbrot, cmap='Blues_r')
     if save:
         plt.savefig(os.path.join(__file__.split('.')[0], __file__.split('.')[0]+'.png'), dpi=600)
     plt.show()
@@ -60,7 +60,7 @@ def plot_multibrot(K    = 4000,
     mplot = ax.imshow(mandelbrot,
                       extent=(np.min(x), np.max(x), np.min(y), np.max(y)),
                       origin='lower',
-                      cmap='gray')
+                      cmap='Blues_r')
 
     def update(d):
         label = 'timestep {0}'.format(d)
@@ -97,16 +97,16 @@ def plot_mandelbar(K    = 4000,
     fig.set_tight_layout(True)
     ax.set_aspect('equal')
 
-    ax.contourf(x, y, mandelbar, cmap='gray')
+    ax.contourf(x, y, mandelbar, cmap='Blues_r')
     if save:
         plt.savefig(os.path.join(__file__.split('.')[0], 'Mandelbar.png'), dpi=600)
     plt.show()
 
 
 def main():
-    plot_mandelbrot(800, False)
-    #plot_multibrot(800, True)
-    plot_mandelbar(4000, True)
+    #plot_mandelbrot(4000, True)
+    plot_multibrot(800, True)
+    #plot_mandelbar(4000, True)
 
 if __name__=='__main__':
     main()
