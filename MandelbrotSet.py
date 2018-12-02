@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 import theano
 import theano.tensor as T
@@ -167,31 +168,34 @@ def mandelbulb(K        = 200,
                   np.square(x_n[:,:,:,1]) + \
                   np.square(x_n[:,:,:,2]))
 
-    b_ = 1.0 * (r_n < 2.0)
-
-    import scipy.ndimage as im
-
-    d_ = np.sqrt(np.square(im.sobel(b_, 0)) + \
-                 np.square(im.sobel(b_, 1)) + \
-                 np.square(im.sobel(b_, 2)))
-
-    sx, sy, sz = np.where(np.logical_not(d_ < 10.0))
+    b_ = 1.0 * (r_n < 10.0)
 
     import open3d
+    from skimage import measure
 
-    xyz = np.column_stack((sx, sy, sz))
+    verts, faces = measure.marching_cubes_classic(b_, 0)
+    faces = measure.correct_mesh_orientation(b_, verts, faces)
+    verts = 2.0 * extreme * (np.array(verts, dtype=np.float32) / K) - extreme
 
     pcd = open3d.PointCloud()
-    pcd.points = open3d.Vector3dVector(xyz)
-
+    pcd.points = open3d.Vector3dVector(verts)
+    open3d.estimate_normals(pcd, search_param = open3d.KDTreeSearchParamHybrid(
+                            radius = 0.1, max_nn = 30))
     open3d.draw_geometries([pcd])
+
+    mesh = open3d.TriangleMesh()
+    mesh.vertices           = open3d.Vector3dVector(verts)
+    mesh.triangles          = open3d.Vector3iVector(faces)
+    mesh.compute_vertex_normals()
+    open3d.draw_geometries([mesh])
+
 
 
 def main():
     #plot_mandelbrot(4000, True)
     #plot_multibrot(800, True)
     #plot_mandelbar(4000, True)
-    mandelbulb(K=200, p=8, N=5)
+    mandelbulb(K=200, p=2, N=10)
 
 if __name__=='__main__':
     main()
