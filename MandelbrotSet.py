@@ -112,14 +112,86 @@ def plot_mandelbar(K    = 4000,
     plt.show()
 
 
-# def mandelbulb(K = 200):
-#
+def mandelbulb(K        = 200,
+               p        = 8.0,
+               N        = 10,
+               extreme  = 1.25,
+               optimize = False):
+    M = T.ftensor4()
+    C = T.ftensor4()
+    n = T.fscalar()
+
+    def step(X):
+        r     = T.sqrt(T.square(X[:,:,:,0]) + T.square(X[:,:,:,1]) + T.square(X[:,:,:,2]))
+        phi   = T.arctan2(X[:,:,:,1], X[:,:,:,0])
+        theta = T.arctan2(T.sqrt(T.square(X[:,:,:,0]) + T.square(X[:,:,:,1])), X[:,:,:,2])
+
+
+        X_ = T.stack((T.pow(r, n) * T.sin(n * theta) * T.cos(n * phi),
+                      T.pow(r, n) * T.sin(n * theta) * T.sin(n * theta),
+                      T.pow(r, n) * T.cos(n * theta)), axis=-1)
+
+        return X_ + C
+
+    if optimize:
+        result, _ = theano.scan(fn=step,
+                                outputs_info=M,
+                                n_steps=N)
+
+        f = theano.function([M,C,n],
+                            result,
+                            allow_input_downcast = True)
+    else:
+        f_ = theano.function([M,C,n],
+                             step(M),
+                             allow_input_downcast = True)
+
+        def f(X,c,q):
+            for j in range(N):
+                print 'step {%d}'%j
+                X = f_(X,c,q)
+            return np.array(X)
+
+    x,y,z = np.meshgrid(np.linspace(-extreme, extreme, K),
+                        np.linspace(-extreme, extreme, K),
+                        np.linspace(-extreme, extreme, K))
+
+    X = np.stack((x,y,z), axis=-1)
+
+    if optimize:
+        x_n = f(np.zeros((K,K,K,3)), X, p)[-1]
+    else:
+        x_n = f(np.zeros((K,K,K,3)), X, p)
+
+    r_n = np.sqrt(np.square(x_n[:,:,:,0]) + \
+                  np.square(x_n[:,:,:,1]) + \
+                  np.square(x_n[:,:,:,2]))
+
+    b_ = 1.0 * (r_n < 2.0)
+
+    import scipy.ndimage as im
+
+    d_ = np.sqrt(np.square(im.sobel(b_, 0)) + \
+                 np.square(im.sobel(b_, 1)) + \
+                 np.square(im.sobel(b_, 2)))
+
+    sx, sy, sz = np.where(np.logical_not(d_ < 10.0))
+
+    import open3d
+
+    xyz = np.column_stack((sx, sy, sz))
+
+    pcd = open3d.PointCloud()
+    pcd.points = open3d.Vector3dVector(xyz)
+
+    open3d.draw_geometries([pcd])
 
 
 def main():
-    plot_mandelbrot(4000, True)
-    plot_multibrot(800, True)
-    plot_mandelbar(4000, True)
+    #plot_mandelbrot(4000, True)
+    #plot_multibrot(800, True)
+    #plot_mandelbar(4000, True)
+    mandelbulb(K=200, p=8, N=5)
 
 if __name__=='__main__':
     main()
