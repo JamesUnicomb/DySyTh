@@ -70,7 +70,7 @@ def plot_multibrot(K    = 4000,
         mandelbrot = np.sum(np.absolute(Z_n) < 2.0, axis=0)
         mplot.set_data(mandelbrot)
 
-    anim = FuncAnimation(fig, update, frames=np.arange(0.0, 5.0, 0.02), interval=20)
+    anim = FuncAnimation(fig, update, frames=np.arange(0.0, 10.0, 0.05), interval=50)
 
     if save:
         anim.save(os.path.join(__file__.split('.')[0], 'Multibrot.gif'), dpi=200, writer='imagemagick')
@@ -79,12 +79,34 @@ def plot_multibrot(K    = 4000,
 
 def plot_mandelbar(K    = 4000,
                    save = True):
+    def step(X):
+        return T.square(T.conj(X)) + C
 
+    result, _ = theano.scan(fn=step,
+                            outputs_info=M,
+                            n_steps=50)
+
+    f = theano.function([M,C], result, allow_input_downcast=True)
+
+    x,y = np.meshgrid(np.linspace(-2.0, 1.0, K), np.linspace(-1.5, 1.5, K))
+    Z_n = f(np.zeros((K,K)), x+y*1j)
+    mandelbar = np.sum(np.absolute(Z_n) < 2.0, axis=0)
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    fig.set_tight_layout(True)
+    ax.set_aspect('equal')
+
+    ax.contourf(x, y, mandelbar, cmap='gray')
+    if save:
+        plt.savefig(os.path.join(__file__.split('.')[0], 'Mandelbar.png'), dpi=600)
+    plt.show()
 
 
 def main():
     plot_mandelbrot(800, False)
-    plot_multibrot(800, True)
+    #plot_multibrot(800, True)
+    plot_mandelbar(4000, True)
 
 if __name__=='__main__':
     main()

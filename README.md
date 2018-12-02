@@ -94,3 +94,15 @@ For the standard Mandelbrot set, we use the equations above, however, we can cha
 <p align="center">
   <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/Multibrot.gif" width="480" />
 </p>
+
+
+### Mandelbar Set
+
+Another result, we take the complex conjugate before squaring, shown in the equtions:
+
+<p align="center"><img src="https://latex.codecogs.com/gif.latex?\begin{align*}&space;z_0&space;&&space;=&space;0&space;\\&space;z_{n&plus;1}&space;&=&space;\bar{z}_n^2&space;&plus;&space;c&space;\end{align*}" title="\begin{align*} z_0 & = 0 \\ z_{n+1} &= \bar{z}_n^2 + c \end{align*}" /></p>
+
+
+<p align="center">
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/Mandelbar.png" width="480" />
+</p>
