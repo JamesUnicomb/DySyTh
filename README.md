@@ -92,5 +92,5 @@ For the standard Mandelbrot set, we use the equations above, however, we can cha
 <img src="https://latex.codecogs.com/gif.latex?\begin{align*}&space;z_0&space;&&space;=&space;0&space;\\&space;z_{n&plus;1}&space;&=&space;z_n^d&space;&plus;&space;c&space;\end{align*}" title="\begin{align*} z_0 & = 0 \\ z_{n+1} &= z_n^d + c \end{align*}" />
 
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/MultibrotSet.gif" width="480" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/Multibrot.gif" width="480" />
 </p>
