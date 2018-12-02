@@ -167,6 +167,7 @@ def plot_zero_crossing(K = 600):
 
     ax = plt.subplot(111)
     ax.imshow(np.log(min_crossing_time.reshape(K,K)),
+              cmap='Blues_r',
               origin='lower',
               extent=[np.min(theta1_), np.max(theta1_), np.min(theta2_), np.max(theta2_)])
     ax.set_aspect('equal')
