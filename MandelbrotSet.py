@@ -211,7 +211,7 @@ def mandelbulb(K        = 200,
     custom_draw_geometry_with_rotation(pcd)
 
     output_file = os.path.join(__file__.split('.')[0], 'Mandelbulb.gif')
-    imageio.mimsave(output_file, images, duration=0.1)
+    imageio.mimsave(output_file, images, duration=0.05)
 
 
 
@@ -220,7 +220,7 @@ def main():
     #plot_mandelbrot(4000, True)
     #plot_multibrot(800, True)
     #plot_mandelbar(4000, True)
-    mandelbulb(K=500, p=3.0, N=6)
+    mandelbulb(K=500, p=3.0, N=10)
 
 if __name__=='__main__':
     main()
