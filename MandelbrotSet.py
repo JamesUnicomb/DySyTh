@@ -1,5 +1,6 @@
 import os, shutil
 import numpy as np
+import imageio
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
@@ -182,33 +183,43 @@ def mandelbulb(K        = 200,
     open3d.estimate_normals(pcd, search_param = open3d.KDTreeSearchParamHybrid(
                             radius = 0.1, max_nn = 30))
 
-    vis = open3d.Visualizer()
-    vis.create_window()
+    try:
+        shutil.rmtree(os.path.join(__file__.split('.')[0], 'Mandelbulb'))
+    except OSError:
+        pass
+
+    os.mkdir(os.path.join(__file__.split('.')[0], 'Mandelbulb'))
+
+    global i
+    i = 0
 
     def custom_draw_geometry_with_rotation(pcd):
         def rotate_view(vis):
             ctr = vis.get_view_control()
-            ctr.rotate(0.1, 0.0)
+            ctr.rotate(10.0, 0.0)
+
+            global i
+            i = np.mod(i + 1, 210)
+            print i
+
+            if i % 4 == 0:
+                image = np.asarray(vis.capture_screen_float_buffer())[::2,::2]
+                image_name = 'Mandelbulb_%03d.png'%(i)
+                image_name = os.path.join(__file__.split('.')[0], 'Mandelbulb', image_name)
+                plt.imsave(image_name, image)
+
             return False
+
         open3d.draw_geometries_with_animation_callback([pcd], rotate_view)
 
     custom_draw_geometry_with_rotation(pcd)
 
-    # def capture_image(vis, k):
-    #     image = vis.capture_screen_float_buffer()
-    #     plt.imsave(os.path.join(__file__.split('.')[0], 'Mandelbulb/Mandelbulb'+str(k)+'.png'), np.asarray(image))
-    #     plt.close()
-    #     return False
-    #
-    # capture_image(vis)
+    images = []
+    for filename in os.listdir(os.path.join(__file__.split('.')[0], 'Mandelbulb')):
+        images.append(imageio.imread(os.path.join(__file__.split('.')[0],  'Mandelbulb', filename)))
+    output_file = os.path.join(__file__.split('.')[0], 'Mandelbulb.gif')
+    imageio.mimsave(output_file, images, duration=50)
 
-    #print [method_name for method_name in dir(vis) if callable(getattr(vis, method_name))]
-
-    # mesh = open3d.TriangleMesh()
-    # mesh.vertices           = open3d.Vector3dVector(verts)
-    # mesh.triangles          = open3d.Vector3iVector(faces)
-    # mesh.compute_vertex_normals()
-    # open3d.draw_geometries([mesh])
 
 
 
@@ -216,7 +227,7 @@ def main():
     #plot_mandelbrot(4000, True)
     #plot_multibrot(800, True)
     #plot_mandelbar(4000, True)
-    mandelbulb(K=500, p=4.0, N=10)
+    mandelbulb(K=500, p=8.0, N=20)
 
 if __name__=='__main__':
     main()

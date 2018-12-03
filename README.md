@@ -114,5 +114,5 @@ The 3D extension to the 2D Mandelbrot set:
 
 This modified equation produces the following pattern known as the Tricorn.
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/Mandelbulb.png" width="480" />
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/Mandelbulb.gif" width="640" />
 </p>
