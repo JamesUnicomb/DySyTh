@@ -116,7 +116,7 @@ def plot_mandelbar(K    = 4000,
 def mandelbulb(K        = 200,
                p        = 8.0,
                N        = 10,
-               extreme  = 1.25,
+               extreme  = 1.5,
                optimize = False):
     M = T.ftensor4()
     C = T.ftensor4()
@@ -168,7 +168,7 @@ def mandelbulb(K        = 200,
                   np.square(x_n[:,:,:,1]) + \
                   np.square(x_n[:,:,:,2]))
 
-    b_ = 1.0 * (r_n < 10.0)
+    b_ = 1.0 * (r_n < 2.0)
 
     import open3d
     from skimage import measure
@@ -181,13 +181,34 @@ def mandelbulb(K        = 200,
     pcd.points = open3d.Vector3dVector(verts)
     open3d.estimate_normals(pcd, search_param = open3d.KDTreeSearchParamHybrid(
                             radius = 0.1, max_nn = 30))
-    open3d.draw_geometries([pcd])
 
-    mesh = open3d.TriangleMesh()
-    mesh.vertices           = open3d.Vector3dVector(verts)
-    mesh.triangles          = open3d.Vector3iVector(faces)
-    mesh.compute_vertex_normals()
-    open3d.draw_geometries([mesh])
+    vis = open3d.Visualizer()
+    vis.create_window()
+
+    def custom_draw_geometry_with_rotation(pcd):
+        def rotate_view(vis):
+            ctr = vis.get_view_control()
+            ctr.rotate(0.1, 0.0)
+            return False
+        open3d.draw_geometries_with_animation_callback([pcd], rotate_view)
+
+    custom_draw_geometry_with_rotation(pcd)
+
+    # def capture_image(vis, k):
+    #     image = vis.capture_screen_float_buffer()
+    #     plt.imsave(os.path.join(__file__.split('.')[0], 'Mandelbulb/Mandelbulb'+str(k)+'.png'), np.asarray(image))
+    #     plt.close()
+    #     return False
+    #
+    # capture_image(vis)
+
+    #print [method_name for method_name in dir(vis) if callable(getattr(vis, method_name))]
+
+    # mesh = open3d.TriangleMesh()
+    # mesh.vertices           = open3d.Vector3dVector(verts)
+    # mesh.triangles          = open3d.Vector3iVector(faces)
+    # mesh.compute_vertex_normals()
+    # open3d.draw_geometries([mesh])
 
 
 
@@ -195,7 +216,7 @@ def main():
     #plot_mandelbrot(4000, True)
     #plot_multibrot(800, True)
     #plot_mandelbar(4000, True)
-    mandelbulb(K=200, p=2, N=10)
+    mandelbulb(K=500, p=4.0, N=10)
 
 if __name__=='__main__':
     main()
