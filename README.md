@@ -113,5 +113,19 @@ This modified equation produces the following pattern known as the Tricorn.
 The 3D extension to the 2D Mandelbrot set:
 
 <p align="center">
-  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/Mandelbulb.gif" width="640" />
+  <img src="https://latex.codecogs.com/gif.latex?\begin{align*}&space;\boldsymbol{v}&space;&=&space;\begin{bmatrix}&space;x&space;&&space;y&space;&&space;z&space;\end{bmatrix}&space;\in&space;\mathbb{R}^3&space;\\&space;\boldsymbol{v}&space;&\leftarrow&space;\boldsymbol{v}^N&plus;c&space;\end{align*}" title="\begin{align*} \boldsymbol{v} &= \begin{bmatrix} x & y & z \end{bmatrix} \in \mathbb{R}^3 \\ \boldsymbol{v} &\leftarrow \boldsymbol{v}^N+c \end{align*}" /></p>
+
+#### For N=3
+
+We perform 10 iterations and produce:
+<p align="center">
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/Mandelbulb_3_10.gif" width="640" />
+</p>
+
+
+#### For N=8
+
+We perform 10 iterations and produce:
+<p align="center">
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/Mandelbulb_8_10.gif" width="640" />
 </p>

@@ -220,7 +220,7 @@ def main():
     #plot_mandelbrot(4000, True)
     #plot_multibrot(800, True)
     #plot_mandelbar(4000, True)
-    mandelbulb(K=500, p=3.0, N=10)
+    mandelbulb(K=500, p=8.0, N=10)
 
 if __name__=='__main__':
     main()
