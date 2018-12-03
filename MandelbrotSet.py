@@ -202,7 +202,7 @@ def mandelbulb(K        = 200,
             i = np.mod(i + 1, 210)
             print i
 
-            if i % 4 == 0:
+            if i % 2 == 0:
                 image = np.asarray(vis.capture_screen_float_buffer())[::2,::2]
                 image_name = 'Mandelbulb_%03d.png'%(i)
                 image_name = os.path.join(__file__.split('.')[0], 'Mandelbulb', image_name)
@@ -227,7 +227,7 @@ def main():
     #plot_mandelbrot(4000, True)
     #plot_multibrot(800, True)
     #plot_mandelbar(4000, True)
-    mandelbulb(K=500, p=8.0, N=20)
+    mandelbulb(K=500, p=3.0, N=20)
 
 if __name__=='__main__':
     main()
