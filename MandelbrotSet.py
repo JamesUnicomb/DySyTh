@@ -172,6 +172,7 @@ def mandelbulb(K        = 200,
     b_ = 1.0 * (r_n < 2.0)
 
     import open3d
+    from scipy.misc import imresize
     from skimage import measure
 
     verts, faces = measure.marching_cubes_classic(b_, 0)
@@ -183,30 +184,25 @@ def mandelbulb(K        = 200,
     open3d.estimate_normals(pcd, search_param = open3d.KDTreeSearchParamHybrid(
                             radius = 0.1, max_nn = 30))
 
-    try:
-        shutil.rmtree(os.path.join(__file__.split('.')[0], 'Mandelbulb'))
-    except OSError:
-        pass
-
-    os.mkdir(os.path.join(__file__.split('.')[0], 'Mandelbulb'))
-
-    global i
+    global i, images
     i = 0
+    images = []
 
     def custom_draw_geometry_with_rotation(pcd):
         def rotate_view(vis):
             ctr = vis.get_view_control()
             ctr.rotate(10.0, 0.0)
 
-            global i
-            i = np.mod(i + 1, 210)
-            print i
+            global i, images
+            i += 1
+            print i % 210, i // 210
 
-            if i % 2 == 0:
-                image = np.asarray(vis.capture_screen_float_buffer())[::2,::2]
-                image_name = 'Mandelbulb_%03d.png'%(i)
-                image_name = os.path.join(__file__.split('.')[0], 'Mandelbulb', image_name)
-                plt.imsave(image_name, image)
+            image = np.asarray(vis.capture_screen_float_buffer())
+            image = np.array(255 * image, dtype=np.uint8)
+            image = imresize(image, 0.25)
+
+            if (i // 210 == 0):
+                images.append(image)
 
             return False
 
@@ -214,11 +210,8 @@ def mandelbulb(K        = 200,
 
     custom_draw_geometry_with_rotation(pcd)
 
-    images = []
-    for filename in os.listdir(os.path.join(__file__.split('.')[0], 'Mandelbulb')):
-        images.append(imageio.imread(os.path.join(__file__.split('.')[0],  'Mandelbulb', filename)))
     output_file = os.path.join(__file__.split('.')[0], 'Mandelbulb.gif')
-    imageio.mimsave(output_file, images, duration=0.05)
+    imageio.mimsave(output_file, images, duration=0.1)
 
 
 
@@ -227,7 +220,7 @@ def main():
     #plot_mandelbrot(4000, True)
     #plot_multibrot(800, True)
     #plot_mandelbar(4000, True)
-    mandelbulb(K=500, p=3.0, N=20)
+    mandelbulb(K=500, p=3.0, N=6)
 
 if __name__=='__main__':
     main()
