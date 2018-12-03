@@ -218,7 +218,7 @@ def mandelbulb(K        = 200,
     for filename in os.listdir(os.path.join(__file__.split('.')[0], 'Mandelbulb')):
         images.append(imageio.imread(os.path.join(__file__.split('.')[0],  'Mandelbulb', filename)))
     output_file = os.path.join(__file__.split('.')[0], 'Mandelbulb.gif')
-    imageio.mimsave(output_file, images, duration=50)
+    imageio.mimsave(output_file, images, duration=0.05)
 
 
 
