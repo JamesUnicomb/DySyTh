@@ -129,3 +129,11 @@ We perform 10 iterations and produce:
 <p align="center">
   <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/Mandelbulb_8_10.gif" width="640" />
 </p>
+
+
+#### Taking more iterations
+
+The animation shows the effect of performing further iterations. Eventually we get more detail than our plotting can handle.
+<p align="center">
+  <img src="https://github.com/JamesUnicomb/DySyTh/blob/master/MandelbrotSet/MandelbulbEvolution.gif" width="640" />
+</p>

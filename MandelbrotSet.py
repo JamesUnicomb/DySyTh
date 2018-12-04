@@ -210,17 +210,111 @@ def mandelbulb(K        = 200,
 
     custom_draw_geometry_with_rotation(pcd)
 
-    output_file = os.path.join(__file__.split('.')[0], 'Mandelbulb.gif')
+    gif_name = 'Mandelbulb_%d_%d.gif' % (int(p), int(N))
+    output_file = os.path.join(__file__.split('.')[0], gif_name)
     imageio.mimsave(output_file, images, duration=0.05)
 
 
+
+def mandelbulb_evolution(K        = 200,
+                         p        = 8.0,
+                         N        = 10,
+                         bounds   = ((-1.2,1.2), (-1.2,1.2), (-1.2,1.2)),
+                         optimize = False):
+    M = T.ftensor4()
+    C = T.ftensor4()
+    n = T.fscalar()
+
+    def step(X):
+        r     = T.sqrt(T.square(X[:,:,:,0]) + T.square(X[:,:,:,1]) + T.square(X[:,:,:,2]))
+        phi   = T.arctan2(X[:,:,:,1], X[:,:,:,0])
+        theta = T.arctan2(T.sqrt(T.square(X[:,:,:,0]) + T.square(X[:,:,:,1])), X[:,:,:,2])
+
+
+        X_ = T.stack((T.pow(r, n) * T.sin(n * theta) * T.cos(n * phi),
+                      T.pow(r, n) * T.sin(n * theta) * T.sin(n * theta),
+                      T.pow(r, n) * T.cos(n * theta)), axis=-1)
+
+        return X_ + C
+
+
+    f_ = theano.function([M,C,n],
+                         step(M),
+                         allow_input_downcast = True)
+
+    import open3d
+    from scipy.misc import imresize
+    from skimage import measure
+
+    def f(X,c,q):
+        vert_list = []
+
+        for j in range(N):
+            print 'step {%d}'%j
+            X = f_(X,c,q)
+
+            R = np.sqrt(np.square(X[:,:,:,0]) + \
+                        np.square(X[:,:,:,1]) + \
+                        np.square(X[:,:,:,2]))
+
+            B = 1.0 * (R < 2.0)
+
+            verts, faces = measure.marching_cubes_classic(B, 0)
+
+            for k in range(3):
+                verts[:,k] = (bounds[k][1] - bounds[k][0]) * (1.0 * verts[:,k]) / K + bounds[k][0]
+
+            faces = measure.correct_mesh_orientation(B, verts, faces)
+
+            vert_list.append(verts)
+
+        return vert_list
+
+    x,y,z = np.meshgrid(np.linspace(bounds[0][0], bounds[0][1], K, dtype=np.float32),
+                        np.linspace(bounds[1][0], bounds[1][1], K, dtype=np.float32),
+                        np.linspace(bounds[2][0], bounds[2][1], K, dtype=np.float32))
+
+    X = np.stack((x,y,z), axis=-1)
+
+    v = f(np.zeros((K,K,K,3)), X, p)
+
+    images = []
+
+    def render_pointcloud(pcd):
+        vis = open3d.Visualizer()
+        vis.create_window()
+        vis.add_geometry(pcd)
+        ctr = vis.get_view_control()
+        ctr.rotate(202.0, 202.0)
+        vis.update_geometry()
+        vis.poll_events()
+        vis.update_renderer()
+        image = np.asarray(vis.capture_screen_float_buffer(False))
+        return image
+
+    for k in range(len(v) - 1)+range(len(v) - 1)[::-1]:
+        pcd = open3d.PointCloud()
+        pcd.points = open3d.Vector3dVector(np.array(v[k+1]))
+        open3d.estimate_normals(pcd, search_param = open3d.KDTreeSearchParamHybrid(
+                                radius = 0.1, max_nn = 30))
+
+        image = render_pointcloud(pcd)
+        image = np.array(255 * render_pointcloud(pcd), dtype=np.uint8)
+
+        images.append(image)
+
+
+    gif_name = 'MandelbulbEvolution.gif'
+    output_file = os.path.join(__file__.split('.')[0], gif_name)
+    imageio.mimsave(output_file, images, duration=0.2)
 
 
 def main():
     #plot_mandelbrot(4000, True)
     #plot_multibrot(800, True)
     #plot_mandelbar(4000, True)
-    mandelbulb(K=500, p=8.0, N=10)
+    #mandelbulb(K=500, p=8.0, N=10)
+    mandelbulb_evolution(K=500, p=3.0, N=10)
 
 if __name__=='__main__':
     main()
