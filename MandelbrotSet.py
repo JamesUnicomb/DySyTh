@@ -219,7 +219,7 @@ def mandelbulb(K        = 200,
 def mandelbulb_evolution(K        = 200,
                          p        = 8.0,
                          N        = 10,
-                         bounds   = ((-1.2,1.2), (-1.2,1.2), (-1.2,1.2)),
+                         bounds   = ((-1.5,1.5), (-1.5,1.5), (-1.5,1.5)),
                          optimize = False):
     M = T.ftensor4()
     C = T.ftensor4()
@@ -314,7 +314,7 @@ def main():
     #plot_multibrot(800, True)
     #plot_mandelbar(4000, True)
     #mandelbulb(K=500, p=8.0, N=10)
-    mandelbulb_evolution(K=500, p=3.0, N=10)
+    mandelbulb_evolution(K=600, p=3.0, N=10)
 
 if __name__=='__main__':
     main()
